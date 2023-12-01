@@ -1,7 +1,8 @@
 import { Key, Car } from "phosphor-react-native";
-import { Container, IconBox, Message, TextHighlight } from "./styles";
-import { useTheme } from "styled-components";
 import { TouchableOpacityProps } from "react-native";
+import { useTheme } from "styled-components";
+
+import { Container, IconBox, Message, TextHighlight } from "./styles";
 
 type Props = TouchableOpacityProps & {
   licensePlate?: string | null;

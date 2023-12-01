@@ -1,10 +1,11 @@
-import { Container, Greeting, Message, Name, Picture, Tag } from "./styles";
+import { useUser, useApp } from "@realm/react";
 import { Power } from "phosphor-react-native";
 import { TouchableOpacity } from "react-native";
-import theme from "@/themes";
-
-import { useUser, useApp } from "@realm/react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { Container, Greeting, Message, Name, Picture, Tag } from "./styles";
+
+import theme from "@/themes";
 
 export function HomeHeader() {
   const realmUser = useUser();
