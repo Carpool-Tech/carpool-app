@@ -21,6 +21,11 @@ export function SignIn() {
     scopes: ["profile", "email"],
   });
 
+  console.log(EXPO_PUBLIC_ANDROID_CLIENT_ID);
+  console.log(EXPO_PUBLIC_IOS_CLIENT_ID);
+  console.log(response);
+  console.log(googleSignIn);
+
   const app = useApp();
 
   function handleGoogleSignIn() {
