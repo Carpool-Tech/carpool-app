@@ -1,5 +1,10 @@
-import { EXPO_PUBLIC_ANDROID_CLIENT_ID, EXPO_PUBLIC_IOS_CLIENT_ID } from "@env";
+import {
+  ANDROID_CLIENT_ID,
+  EXPO_PUBLIC_IOS_CLIENT_ID,
+  EXPO_PROXY_CLIENT_ID,
+} from "@env";
 import { Realm, useApp } from "@realm/react";
+import { makeRedirectUri } from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect, useState } from "react";
@@ -16,12 +21,17 @@ export function SignIn() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, response, googleSignIn] = Google.useAuthRequest({
-    androidClientId: EXPO_PUBLIC_ANDROID_CLIENT_ID,
+    androidClientId: ANDROID_CLIENT_ID,
     iosClientId: EXPO_PUBLIC_IOS_CLIENT_ID,
+    expoClientId: EXPO_PROXY_CLIENT_ID,
     scopes: ["profile", "email"],
+    ...{ useProxy: true },
+    redirectUri: makeRedirectUri({
+      scheme: "com.carpool.app.v1",
+    }),
   });
 
-  console.log(EXPO_PUBLIC_ANDROID_CLIENT_ID);
+  console.log(ANDROID_CLIENT_ID);
   console.log(EXPO_PUBLIC_IOS_CLIENT_ID);
   console.log(response);
   console.log(googleSignIn);
