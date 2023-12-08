@@ -6,9 +6,10 @@ import { Container, Content } from "./styles";
 
 import { CarStatus } from "@/components/CarStatus";
 import { HomeHeader } from "@/components/HomeHeader";
-import { useQuery } from "@/libs/realm";
-import { Historic } from "@/libs/realm/schemas/historic";
+// import { useQuery } from "@/libs/realm";
+import { useQuery } from "@realm/react";
 
+import { Historic } from "@/libs/realm/schemas/historic";
 import "react-native-gesture-handler";
 
 export function Home() {
