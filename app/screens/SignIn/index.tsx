@@ -19,7 +19,6 @@ WebBrowser.maybeCompleteAuthSession();
 
 export function SignIn() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, response, googleSignIn] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: EXPO_PUBLIC_IOS_CLIENT_ID,
@@ -30,11 +29,6 @@ export function SignIn() {
       scheme: "com.carpool.app.v1",
     }),
   });
-
-  console.log(ANDROID_CLIENT_ID);
-  console.log(EXPO_PUBLIC_IOS_CLIENT_ID);
-  console.log(response);
-  console.log(googleSignIn);
 
   const app = useApp();
 

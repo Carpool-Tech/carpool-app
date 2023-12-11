@@ -24,9 +24,14 @@ export default function App() {
           <StatusBar backgroundColor="transparent" translucent />
           <UserProvider fallback={SignIn}>
             <RealmProvider
-              schema={[Historic,User]}
+              schema={[Historic, User]}
               sync={{
                 flexible: true,
+                initialSubscriptions: {
+                  update(subs, realm) {
+                    subs.add(realm.objects(User));
+                  },
+                },
               }}
             >
               <Provider store={userStore}>
