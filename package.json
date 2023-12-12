@@ -13,6 +13,7 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@realm/react": "^0.5.2",
+    "@reduxjs/toolkit": "^2.0.1",
     "expo": "~49.0.7",
     "expo-auth-session": "~4.0.3",
     "expo-crypto": "~12.4.1",
@@ -35,12 +36,13 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
+    "react-redux": "^9.0.2",
     "realm": "^12.3.1",
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/react": "~18.0.14",
+    "@types/react": "^18.2.41",
     "eslint": "^8.54.0",
     "eslint-config-universe": "^12.0.0",
     "prettier": "^3.1.0",
