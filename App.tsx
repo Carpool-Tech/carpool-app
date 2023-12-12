@@ -27,6 +27,11 @@ export default function App() {
               schema={[Historic, User]}
               sync={{
                 flexible: true,
+                initialSubscriptions: {
+                  update(subs, realm) {
+                    subs.add(realm.objects(User));
+                  },
+                },
               }}
             >
               <Provider store={userStore}>

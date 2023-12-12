@@ -1,23 +1,65 @@
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
-
-import { Container, Content } from "./styles";
+import { Container, Content, Loading } from "./styles";
 
 import { CarStatus } from "@/components/CarStatus";
 import { HomeHeader } from "@/components/HomeHeader";
-import { useQuery } from "@realm/react";
-
+import { useQuery, useRealm, useUser } from "@realm/react";
+import Realm from "realm";
 import { Historic } from "@/libs/realm/schemas/historic";
 import "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { User } from "app/libs/realm/schemas/user";
 
 export function Home() {
   const [currentVehicle, setCurrentVehicle] = useState<Historic | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const historic = useQuery(Historic);
   const navigation = useNavigation;
   function handleRegisterMovement() {
     navigation("/app/screens/home");
   }
+
+  const realm = useRealm();
+  const user = useUser();
+  const [userData] = useQuery(
+    User,
+    (users) => users.filtered("email == $0", user.profile.email),
+  );
+
+  function createUser() {
+    realm.write(() => {
+      realm.create("User", {
+        name: user.profile.name,
+        email: user.profile.email,
+        _id: new Realm.BSON.UUID(),
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
+    });
+  }
+
+  async function checkUserIsRegistered() {
+    try {
+      let jsonValue = await AsyncStorage.getItem("isUserRegistered");
+      jsonValue = jsonValue != null ? JSON.parse(jsonValue) : null;
+      if (!jsonValue) {
+        if (!userData) {
+          createUser();
+        }
+        await AsyncStorage.setItem("isUserRegistered", "true");
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Erro", "Erro ao checar usuário.");
+    }
+  }
+
+  useEffect(() => {
+    checkUserIsRegistered();
+  }, [isLoading]);
 
   const fetchVehicle = () => {
     try {
@@ -34,14 +76,16 @@ export function Home() {
   }, []);
 
   return (
-    <Container>
-      <HomeHeader />
-      <Content>
-        <CarStatus
-          licensePlate={currentVehicle?.license_plate}
-          onPress={handleRegisterMovement}
-        />
-      </Content>
-    </Container>
+    isLoading ? <Loading>"Loading"</Loading> : (
+      <Container>
+        <HomeHeader />
+        <Content>
+          <CarStatus
+            licensePlate={currentVehicle?.license_plate}
+            onPress={handleRegisterMovement}
+          />
+        </Content>
+      </Container>
+    )
   );
 }
