@@ -11,9 +11,11 @@ import { Historic } from "@/libs/realm/schemas/historic";
 import "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User } from "app/libs/realm/schemas/user";
+import { Button } from "app/components/Button";
 
 export function Home() {
   const [currentVehicle, setCurrentVehicle] = useState<Historic | null>(null);
+  const [actualUser, setActualUser] = useState<User>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const historic = useQuery(Historic);
   const navigation = useNavigation;
@@ -50,15 +52,19 @@ export function Home() {
         }
         await AsyncStorage.setItem("isUserRegistered", "true");
       }
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
       Alert.alert("Erro", "Erro ao checar usuário.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
+    setActualUser(userData);
     checkUserIsRegistered();
+    console.log(actualUser);
+    console.log(userData);
   }, [isLoading]);
 
   const fetchVehicle = () => {
@@ -74,7 +80,7 @@ export function Home() {
   useEffect(() => {
     fetchVehicle();
   }, []);
-
+  let n = 0;
   return (
     isLoading ? <Loading>"Loading"</Loading> : (
       <Container>
@@ -83,6 +89,10 @@ export function Home() {
           <CarStatus
             licensePlate={currentVehicle?.license_plate}
             onPress={handleRegisterMovement}
+          />
+          <Button
+            title="console.log()"
+            onPress={() => console.log(n++, userData)}
           />
         </Content>
       </Container>

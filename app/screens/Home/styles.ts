@@ -13,3 +13,5 @@ export const Content = styled.View`
 export const Loading = styled.Text`
   padding: 50px;
 `
+
+export const Button = styled.Button``
