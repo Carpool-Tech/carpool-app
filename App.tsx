@@ -1,6 +1,6 @@
 import { EXPO_PUBLIC_REALM_APP_ID } from "@env";
-import { AppProvider, UserProvider } from "@realm/react";
-import { RealmProvider } from "app/libs/realm";
+import { AppProvider, RealmProvider, UserProvider } from "@realm/react";
+// import { RealmProvider } from "app/libs/realm";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "styled-components";

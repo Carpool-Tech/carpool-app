@@ -12,6 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: "portrait",
   icon: "./app/assets/icon.png",
   userInterfaceStyle: "light",
+  scheme: process.env.EXPO_G_CLOUD_APP_NAME,
   experiments: {
     tsconfigPaths: true,
   },
