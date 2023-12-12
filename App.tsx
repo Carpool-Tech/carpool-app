@@ -24,7 +24,7 @@ export default function App() {
           <StatusBar backgroundColor="transparent" translucent />
           <UserProvider fallback={SignIn}>
             <RealmProvider
-              schema={[Historic,User]}
+              schema={[Historic, User]}
               sync={{
                 flexible: true,
               }}

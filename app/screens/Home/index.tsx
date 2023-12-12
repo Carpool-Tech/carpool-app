@@ -6,7 +6,6 @@ import { Container, Content } from "./styles";
 
 import { CarStatus } from "@/components/CarStatus";
 import { HomeHeader } from "@/components/HomeHeader";
-// import { useQuery } from "@/libs/realm";
 import { useQuery } from "@realm/react";
 
 import { Historic } from "@/libs/realm/schemas/historic";
@@ -23,7 +22,6 @@ export function Home() {
   const fetchVehicle = () => {
     try {
       const vehicle = historic.filtered("status = 'departure'")[0];
-      console.log("Veiculo em uso: " + historic);
       setCurrentVehicle(vehicle);
     } catch (error) {
       Alert.alert("Erro", "Erro ao tentar buscar o veiculo em uso.");
