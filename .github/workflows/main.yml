@@ -8,7 +8,7 @@ on:
 jobs:
   development:
     runs-on: ubuntu-latest
-
+    environment: development
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: npm install
+        run: echo npm install
 
       - name: Run unit tests
         run: echo Run unit tests
@@ -33,9 +33,9 @@ jobs:
       - name: Deploy to Expo development
         run: echo Building development expo app
 
-  qa:
+  stage:
     runs-on: ubuntu-latest
-
+    environment: stage
     needs: development
 
     steps:
@@ -48,7 +48,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: npm install
+        run: echo npm install
 
       - name: Run unit tests
         run: echo Run unit tests
@@ -64,8 +64,9 @@ jobs:
 
   production:
     runs-on: ubuntu-latest
+    environment: production
 
-    needs: qa
+    needs: stage
 
     steps:
       - name: Checkout code
@@ -77,7 +78,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: npm install
+        run: echo npm install
         
       - name: Run unit tests
         run: echo Run unit tests
