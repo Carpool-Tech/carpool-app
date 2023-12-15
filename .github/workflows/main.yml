@@ -1,0 +1,98 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run integration tests
+        run: npm run integration-test
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Deploy to Expo development
+        run: |
+          expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+          expo publish --release-channel development
+
+  qa:
+    runs-on: ubuntu-latest
+
+    needs: development
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run integration tests
+        run: npm run integration-test
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Deploy to Expo QA
+        run: |
+          expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+          expo publish --release-channel qa
+
+  production:
+    runs-on: ubuntu-latest
+
+    needs: qa
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run integration tests
+        run: npm run integration-test
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Deploy to Expo production
+        run: |
+          expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+          expo publish --release-channel production
