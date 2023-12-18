@@ -1,7 +1,7 @@
 import {
   ANDROID_CLIENT_ID,
   EXPO_PUBLIC_IOS_CLIENT_ID,
-  EXPO_PROXY_CLIENT_ID,
+  EXPO_PUBLIC_PROXY_CLIENT_ID,
 } from "@env";
 import { Realm, useApp } from "@realm/react";
 import { makeRedirectUri } from "expo-auth-session";
@@ -22,7 +22,7 @@ export function SignIn() {
   const [_, response, googleSignIn] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: EXPO_PUBLIC_IOS_CLIENT_ID,
-    expoClientId: EXPO_PROXY_CLIENT_ID,
+    expoClientId: EXPO_PUBLIC_PROXY_CLIENT_ID,
     scopes: ["profile", "email"],
     ...{ useProxy: true },
     redirectUri: makeRedirectUri({
