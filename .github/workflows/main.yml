@@ -1,0 +1,93 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: echo npm install
+
+      - name: Run unit tests
+        run: echo Run unit tests
+
+      - name: Run integration tests
+        run: echo Run integration tests
+
+      - name: Run linter
+        run: echo Run linter
+
+      - name: Deploy to Expo development
+        run: echo Building development expo app
+
+  stage:
+    runs-on: ubuntu-latest
+    environment: stage
+    needs: development
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: echo npm install
+
+      - name: Run unit tests
+        run: echo Run unit tests
+
+      - name: Run integration tests
+        run: echo Run integration tests
+
+      - name: Run linter
+        run: echo Run linter
+
+      - name: Deploy to Expo development
+        run: echo Building qa expo app
+
+  production:
+    runs-on: ubuntu-latest
+    environment: production
+
+    needs: stage
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: echo npm install
+        
+      - name: Run unit tests
+        run: echo Run unit tests
+
+      - name: Run integration tests
+        run: echo Run integration tests
+
+      - name: Run linter
+        run: echo Run linter
+
+      - name: Deploy to Expo development
+        run: echo Building production expo app
