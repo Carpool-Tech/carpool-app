@@ -8,7 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   owner: "maykel.nekel",
   name: "poc-realm",
   slug: "poc-realm",
-  version: "1.0.1",
+  version: "1.0.2",
   orientation: "portrait",
   icon: "./app/assets/new_logo_dark.png",
   userInterfaceStyle: "light",

@@ -1,9 +1,20 @@
 name: CI/CD Workflow
-
 on:
   push:
     branches:
       - main
+env:
+  ANDROID_CLIENT_ID: ${{ secrets.ANDROID_CLIENT_ID }}
+  REALM_APP_KEY: ${{ secrets.REALM_APP_KEY }}
+  REALM_APP_KEY_PUBLIC: ${{ secrets.REALM_APP_KEY_PUBLIC }}
+  EXPO_PUBLIC_REALM_APP_ID: ${{ secrets.EXPO_PUBLIC_REALM_APP_ID }}
+  EXPO_PUBLIC_G_CLOUD_APP_NAME: ${{ secrets.EXPO_PUBLIC_G_CLOUD_APP_NAME }}
+  EXPO_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY }}
+  EXPO_PUBLIC_PROJECT_UPDATE_URL: ${{ secrets.EXPO_PUBLIC_PROJECT_UPDATE_URL }}
+  EXPO_PUBLIC_PROJECT_ID: ${{ secrets.EXPO_PUBLIC_PROJECT_ID }}
+  EXPO_PUBLIC_PROXY_CLIENT_ID: ${{ secrets.EXPO_PUBLIC_PROXY_CLIENT_ID }}
+  EXPO_PUBLIC_PROXY_SECRET: ${{ secrets.EXPO_PUBLIC_PROXY_SECRET }}
+  EXPO_PUBLIC_IOS_CLIENT_ID: ${{ secrets.EXPO_PUBLIC_IOS_CLIENT_ID }}
 
 jobs:
   development:
@@ -13,13 +24,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18.x
+          cache: npm
 
       - name: Install dependencies
-        run: echo npm install
+        run: npm install
 
       - name: Run unit tests
         run: echo Run unit tests
@@ -30,8 +52,14 @@ jobs:
       - name: Run linter
         run: echo Run linter
 
-      - name: Deploy to Expo development
-        run: echo Building development expo app
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: Publish update
+        run: eas update --auto -p android
 
   stage:
     runs-on: ubuntu-latest
@@ -39,16 +67,21 @@ jobs:
     needs: development
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-
+          node-version: 18.x
+          cache: npm
+      
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      
       - name: Install dependencies
-        run: echo npm install
+        run: npm ci
 
       - name: Run unit tests
         run: echo Run unit tests
@@ -60,7 +93,7 @@ jobs:
         run: echo Run linter
 
       - name: Deploy to Expo development
-        run: echo Building qa expo app
+        run: eas build --profile stage --platform android
 
   production:
     runs-on: ubuntu-latest
@@ -69,17 +102,22 @@ jobs:
     needs: stage
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-
+          node-version: 18.x
+          cache: npm
+      
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      
       - name: Install dependencies
-        run: echo npm install
-        
+        run: npm ci
+
       - name: Run unit tests
         run: echo Run unit tests
 
@@ -90,4 +128,4 @@ jobs:
         run: echo Run linter
 
       - name: Deploy to Expo development
-        run: echo Building production expo app
+        run: eas build --profile production --platform android
