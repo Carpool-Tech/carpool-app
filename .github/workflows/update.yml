@@ -8,6 +8,11 @@ jobs:
   update:
     name: EAS Update
     runs-on: ubuntu-latest
+    env:
+        EXPO_PUBLIC_G_CLOUD_APP_NAME: ${{ secrets.EXPO_PUBLIC_G_CLOUD_APP_NAME }}
+        EXPO_PUBLIC_PROJECT_UPDATE_URL: ${{ secrets.EXPO_PUBLIC_PROJECT_UPDATE_URL }}
+        EXPO_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY }}
+        EXPO_PUBLIC_PROJECT_ID: ${{ secrets.EXPO_PUBLIC_PROJECT_ID }}
     steps:
       - name: Check for EXPO_TOKEN
         run: |
