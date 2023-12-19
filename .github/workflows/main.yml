@@ -93,7 +93,7 @@ jobs:
         run: echo Run linter
 
       - name: Deploy to Expo development
-        run: eas build --profile stage --platform android
+        run: eas build --profile stage --platform android --non-interactive
 
   production:
     runs-on: ubuntu-latest
@@ -128,4 +128,4 @@ jobs:
         run: echo Run linter
 
       - name: Deploy to Expo development
-        run: eas build --profile production --platform android
+        run: eas build --profile production --platform android --non-interactive
