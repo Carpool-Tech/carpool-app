@@ -38,7 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: "./app/assets/adaptive-icon.png",
+      foregroundImage: "./app/assets/new_logo_dark.png",
       backgroundColor: "#000000",
     },
     package: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
