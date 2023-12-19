@@ -10,7 +10,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: "poc-realm",
   version: "1.0.1",
   orientation: "portrait",
-  icon: "./app/assets/icon.png",
+  icon: "./app/assets/new_logo_dark.png",
   userInterfaceStyle: "light",
   scheme: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
   privacy: "unlisted",
