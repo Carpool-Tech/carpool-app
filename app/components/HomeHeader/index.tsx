@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Container, Greeting, Message, Name, Picture, Tag } from "./styles";
 
 import theme from "@/themes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function HomeHeader() {
   const realmUser = useUser();
@@ -14,8 +15,9 @@ export function HomeHeader() {
 
   const paddingTop = insets.top + 32;
 
-  function handleLogout() {
+  async function handleLogout() {
     app.currentUser?.logOut();
+    await AsyncStorage.clear()
   }
 
   return (

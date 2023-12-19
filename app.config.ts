@@ -1,17 +1,25 @@
-import * as dotenv from "dotenv";
 import { ExpoConfig, ConfigContext } from "expo/config";
 
+import * as dotenv from "dotenv";
 dotenv.config();
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  owner: "carpool-app",
-  name: "carpool-expo-app",
-  slug: "carpool-expo-app-slug",
-  version: "1.0.0",
+  owner: "maykel.nekel",
+  name: "poc-realm",
+  slug: "poc-realm",
+  version: "1.0.1",
   orientation: "portrait",
   icon: "./app/assets/icon.png",
   userInterfaceStyle: "light",
+  scheme: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
+  privacy: "unlisted",
+  updates: {
+    url: process.env.EXPO_PUBLIC_PROJECT_UPDATE_URL
+  },
+  runtimeVersion: {
+    policy: "appVersion"
+  },
   experiments: {
     tsconfigPaths: true,
   },
@@ -23,7 +31,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: process.env.EXPO_G_CLOUD_APP_NAME,
+    bundleIdentifier: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
     config: {
       googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
     },
@@ -33,14 +41,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: "./app/assets/adaptive-icon.png",
       backgroundColor: "#000000",
     },
-    package: process.env.EXPO_G_CLOUD_APP_NAME,
+    package: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
   },
   web: {
     favicon: "./app/assets/favicon.png",
   },
   extra: {
     eas: {
-      projectId: "e9243d6d-c96f-4d1a-b044-53c96f7e60c5",
+      projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
     },
   },
 });
