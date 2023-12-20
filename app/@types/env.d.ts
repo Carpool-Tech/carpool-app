@@ -10,5 +10,4 @@ declare module "@env" {
   export const EXPO_PUBLIC_PROJECT_UPDATE_URL: string;
   export const EXPO_PUBLIC_IOS_CLIENT_ID: string;
   export const EXPO_PUBLIC_GOOGLE_MAPS_API_KEY: string;
-  export const EXPO_PUBLIC_RECAPTCHA_SITE_KEY: string;
 }
