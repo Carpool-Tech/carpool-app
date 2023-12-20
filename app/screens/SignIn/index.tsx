@@ -2,17 +2,15 @@ import {
   ANDROID_CLIENT_ID,
   EXPO_PUBLIC_IOS_CLIENT_ID,
   EXPO_PUBLIC_PROXY_CLIENT_ID,
-  EXPO_PUBLIC_RECAPTCHA_SITE_KEY,
 } from "@env";
 import { Realm, useApp } from "@realm/react";
 import { makeRedirectUri } from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "react-native";
-import Recaptcha, { RecaptchaRef } from "react-native-recaptcha-that-works";
 
-import { Container, Slogan, Title } from "./styles";
+import { Container, Title, Slogan } from "./styles";
 
 import backgroungImg from "@/assets/background.png";
 import { Button } from "@/components/Button";
@@ -20,11 +18,7 @@ import { Button } from "@/components/Button";
 WebBrowser.maybeCompleteAuthSession();
 
 export function SignIn() {
-  const recaptchaRef = useRef<RecaptchaRef | null>(null);
-
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-
   const [_, response, googleSignIn] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: EXPO_PUBLIC_IOS_CLIENT_ID,
@@ -45,20 +39,11 @@ export function SignIn() {
       if (response.type !== "success") {
         setIsAuthenticating(false);
       }
-    }).then(() => recaptchaRef.current?.open());
-  }
-
-  function handleVerify(token: string) {
-    setRecaptchaToken(token);
-    console.log("Recaptcha Token:", token);
-  }
-
-  function handleError(error: unknown) {
-    console.error("Recaptcha Error:", error);
+    });
   }
 
   useEffect(() => {
-    if (response?.type === "success" && recaptchaToken !== null) {
+    if (response?.type === "success") {
       if (response.authentication?.idToken) {
         console.log(`Got auth token -> ${response.authentication?.idToken}`);
 
@@ -76,23 +61,13 @@ export function SignIn() {
         setIsAuthenticating(false);
       }
     }
-  }, [response, recaptchaToken]);
+  }, [response]);
 
   return (
     <Container source={backgroungImg}>
       <Title>Carpool</Title>
 
       <Slogan>Conectando caronas</Slogan>
-      <Recaptcha
-        baseUrl="http://127.0.0.1"
-        onError={handleError}
-        onVerify={handleVerify}
-        ref={recaptchaRef}
-        siteKey={EXPO_PUBLIC_RECAPTCHA_SITE_KEY}
-        size="invisible"
-        theme="dark"
-        loadingComponent={<></>}
-      />
       <Button
         title="Entrar com Google"
         onPress={handleGoogleSignIn}
