@@ -5,9 +5,9 @@ dotenv.config();
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  owner: "maykel.nekel",
-  name: "poc-realm",
-  slug: "poc-realm",
+  owner: process.env.EXPO_PUBLIC_OWNER,
+  name: process.env.EXPO_PUBLIC_PROJECT_NAME!,
+  slug: process.env.EXPO_PUBLIC_PROJECT_SLUG!,
   version: "1.0.2",
   orientation: "portrait",
   icon: "./app/assets/new_logo_dark.png",
