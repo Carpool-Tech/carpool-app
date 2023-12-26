@@ -17,7 +17,7 @@ export function HomeHeader() {
 
   async function handleLogout() {
     app.currentUser?.logOut();
-    await AsyncStorage.clear()
+    await AsyncStorage.clear();
   }
 
   return (
