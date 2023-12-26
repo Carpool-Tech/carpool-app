@@ -15,10 +15,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   scheme: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
   privacy: "unlisted",
   updates: {
-    url: process.env.EXPO_PUBLIC_PROJECT_UPDATE_URL
+    url: process.env.EXPO_PUBLIC_PROJECT_UPDATE_URL,
   },
   runtimeVersion: {
-    policy: "appVersion"
+    policy: "appVersion",
   },
   experiments: {
     tsconfigPaths: true,

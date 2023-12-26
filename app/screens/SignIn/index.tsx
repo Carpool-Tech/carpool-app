@@ -41,11 +41,13 @@ export function SignIn() {
   function handleGoogleSignIn() {
     setIsAuthenticating(true);
 
-    googleSignIn().then((response) => {
-      if (response.type !== "success") {
-        setIsAuthenticating(false);
-      }
-    }).then(() => recaptchaRef.current?.open());
+    googleSignIn()
+      .then((response) => {
+        if (response.type !== "success") {
+          setIsAuthenticating(false);
+        }
+      })
+      .then(() => recaptchaRef.current?.open());
   }
 
   function handleVerify(token: string) {

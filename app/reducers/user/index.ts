@@ -1,7 +1,7 @@
-import userSlice from './userSlice'
+import userSlice from "./userSlice";
 
 const userReducers = {
-  userSlice
-}
+  userSlice,
+};
 
-export default userReducers
+export default userReducers;

@@ -5,13 +5,14 @@ export interface iUser {
   email: string;
 }
 
+export interface iSetAsyncStorage {
+  key: string;
+  value: string;
+}
+
 const initialState = {
   name: "",
   email: "",
-};
-export interface iSetAsyncStorage{
-  key: string
-  value: string
 };
 
 const userSlice = createSlice({
@@ -21,7 +22,7 @@ const userSlice = createSlice({
     createUser: (state, action: PayloadAction<iUser>) => {
       state.email = action.payload.email;
       state.name = action.payload.name;
-    }
+    },
   },
 });
 

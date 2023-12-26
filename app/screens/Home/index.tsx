@@ -25,9 +25,8 @@ export function Home() {
 
   const realm = useRealm();
   const user = useUser();
-  const [userData] = useQuery(
-    User,
-    (users) => users.filtered("email == $0", user.profile.email),
+  const [userData] = useQuery(User, (users) =>
+    users.filtered("email == $0", user.profile.email),
   );
 
   function createUser() {
@@ -81,21 +80,21 @@ export function Home() {
     fetchVehicle();
   }, []);
   let n = 0;
-  return (
-    isLoading ? <Loading>"Loading"</Loading> : (
-      <Container>
-        <HomeHeader />
-        <Content>
-          <CarStatus
-            licensePlate={currentVehicle?.license_plate}
-            onPress={handleRegisterMovement}
-          />
-          <Button
-            title="console.log()"
-            onPress={() => console.log(n++, userData)}
-          />
-        </Content>
-      </Container>
-    )
+  return isLoading ? (
+    <Loading>"Loading"</Loading>
+  ) : (
+    <Container>
+      <HomeHeader />
+      <Content>
+        <CarStatus
+          licensePlate={currentVehicle?.license_plate}
+          onPress={handleRegisterMovement}
+        />
+        <Button
+          title="console.log()"
+          onPress={() => console.log(n++, userData)}
+        />
+      </Content>
+    </Container>
   );
 }
