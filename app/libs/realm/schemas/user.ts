@@ -2,6 +2,7 @@ import Realm, { ObjectSchema } from "realm";
 import { Car } from "./car";
 import { Ride } from "./ride";
 import { Preferences } from "./preferences";
+import { PassengerRoute } from "./passenger_route";
 
 type GenerateProps = {
   bio: string;
@@ -10,6 +11,7 @@ type GenerateProps = {
   email: string;
   is_driver: boolean;
   name: string;
+  passenger_routes?: PassengerRoute[];
   preferences: Preferences;
   ranking: number;
   rides: Ride[];
@@ -25,6 +27,7 @@ export class User extends Realm.Object {
   email!: string;
   is_driver!: boolean;
   name!: string;
+  passenger_routes?: PassengerRoute[];
   preferences!: Preferences;
   ranking!: number;
   rides!: Ride[];
@@ -44,6 +47,7 @@ export class User extends Realm.Object {
       email: "string",
       is_driver: { type: "bool", default: false },
       name: "string",
+      passenger_routes: "PassengerRoute[]",
       preferences: "Preferences",
       ranking: { type: "float", default: 0 },
       rides: "Ride[]",
