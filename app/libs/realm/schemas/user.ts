@@ -1,8 +1,10 @@
 import Realm, { ObjectSchema } from "realm";
+import { Car } from "./car";
 import { Preferences } from "./preferences";
 
 type GenerateProps = {
   bio: string;
+  cars?: Car[];
   date_of_birth: string;
   email: string;
   is_driver: boolean;
@@ -16,6 +18,7 @@ type GenerateProps = {
 export class User extends Realm.Object {
   _id!: string;
   bio!: string;
+  cars?: Car[];
   date_of_birth!: string;
   email!: string;
   is_driver!: boolean;
@@ -33,6 +36,7 @@ export class User extends Realm.Object {
     properties: {
       _id: "uuid",
       bio: "string",
+      cars: "Car[]",
       date_of_birth: "date",
       email: "string",
       is_driver: { type: "bool", default: false },
