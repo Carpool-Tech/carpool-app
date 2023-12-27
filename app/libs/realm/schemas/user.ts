@@ -3,6 +3,7 @@ import { Car } from "./car";
 import { Ride } from "./ride";
 import { Preferences } from "./preferences";
 import { PassengerRoute } from "./passenger_route";
+import { Tipping } from "./tipping";
 
 type GenerateProps = {
   bio: string;
@@ -17,6 +18,7 @@ type GenerateProps = {
   rides: Ride[];
   rides_given: number;
   rides_taken: number;
+  tippings?: Tipping[];
 };
 
 export class User extends Realm.Object {
@@ -33,6 +35,7 @@ export class User extends Realm.Object {
   rides!: Ride[];
   rides_given!: number;
   rides_taken!: number;
+  tippings?: Tipping[];
   created_at!: string;
   updated_at!: string;
 
@@ -53,6 +56,7 @@ export class User extends Realm.Object {
       rides: "Ride[]",
       rides_given: { type: "int", default: 0 },
       rides_taken: { type: "int", default: 0 },
+      tippings: "Tipping[]",
       created_at: "date",
       updated_at: "date",
     },

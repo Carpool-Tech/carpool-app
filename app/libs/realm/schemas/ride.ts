@@ -2,6 +2,7 @@ import Realm, { ObjectSchema } from "realm";
 import { Car } from "./car";
 import { User } from "./user";
 import { PassengerRoute } from "./passenger_route";
+import { Tipping } from "./tipping";
 
 type GenerateProps = {
   car: Car;
@@ -14,6 +15,7 @@ type GenerateProps = {
   started_at: string;
   starting_location: string;
   starting_time: string;
+  tippings?: Tipping[];
 };
 
 export class Ride extends Realm.Object {
@@ -28,6 +30,7 @@ export class Ride extends Realm.Object {
   started_at?: string;
   starting_location!: string;
   starting_time!: string;
+  tippings?: Tipping[];
   created_at!: string;
   updated_at!: string;
 
@@ -46,6 +49,7 @@ export class Ride extends Realm.Object {
       started_at: "date",
       starting_location: "string",
       starting_time: "date",
+      tippings: "Tipping[]",
       created_at: "date",
       updated_at: "date",
     },
