@@ -1,4 +1,5 @@
 import Realm, { ObjectSchema } from "realm";
+import { Ride } from "./ride";
 import { User } from "./user";
 
 type GenerateProps = {
@@ -8,6 +9,7 @@ type GenerateProps = {
   model: string;
   owner: User;
   plate: string;
+  rides: Ride[];
   seats: number;
   year_of_making: number;
 };
@@ -28,6 +30,7 @@ export class Car extends Realm.Object {
   model!: string;
   owner!: User;
   plate!: string;
+  rides!: Ride[];
   seats!: number;
   year_of_making!: number;
   created_at!: string;
@@ -44,6 +47,7 @@ export class Car extends Realm.Object {
       model: "string",
       owner: "User",
       plate: "string",
+      rides: "Ride[]",
       seats: { type: "int", default: 5 },
       year_of_making: "int",
       created_at: "date",
