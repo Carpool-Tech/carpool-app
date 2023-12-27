@@ -5,8 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
-import { Historic } from "app/libs/realm/schemas/historic";
-import { User } from "app/libs/realm/schemas/user";
+import { schemas } from "app/libs/realm";
 
 import userStore from "@/stores/user";
 import { Routes } from "@/routes";
@@ -24,7 +23,7 @@ export default function App() {
           <StatusBar backgroundColor="transparent" translucent />
           <UserProvider fallback={SignIn}>
             <RealmProvider
-              schema={[Historic, User]}
+              schema={schemas}
               sync={{
                 flexible: true,
                 initialSubscriptions: {
