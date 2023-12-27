@@ -1,4 +1,5 @@
 import Realm, { ObjectSchema } from "realm";
+import { Preferences } from "./preferences";
 
 type GenerateProps = {
   bio: string;
@@ -6,6 +7,7 @@ type GenerateProps = {
   email: string;
   is_driver: boolean;
   name: string;
+  preferences: Preferences;
   ranking: number;
   rides_given: number;
   rides_taken: number;
@@ -18,6 +20,7 @@ export class User extends Realm.Object {
   email!: string;
   is_driver!: boolean;
   name!: string;
+  preferences!: Preferences;
   ranking!: number;
   rides_given!: number;
   rides_taken!: number;
@@ -34,6 +37,7 @@ export class User extends Realm.Object {
       email: "string",
       is_driver: { type: "bool", default: false },
       name: "string",
+      preferences: "Preferences",
       ranking: { type: "float", default: 0 },
       rides_given: { type: "int", default: 0 },
       rides_taken: { type: "int", default: 0 },
