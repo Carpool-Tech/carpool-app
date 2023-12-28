@@ -11,13 +11,13 @@ Certifique-se de ter o [Node.js](https://nodejs.org/) e o [npm](https://www.npmj
 1. Clone este repositório:
 
 ```bash
-git clone git@github.com:Carpool-Tech/carpool-api.git
+git clone git@github.com:Carpool-Tech/carpool-app.git
 ```
 
 2. Navegue até o diretório do projeto:
 
 ```bash
-cd seu-projeto
+cd carpool-app
 ```
 
 3. Instale as dependências:
