@@ -12,7 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: "portrait",
   icon: "./app/assets/new_logo_dark.png",
   userInterfaceStyle: "light",
-  scheme: process.env.EXPO_PUBLIC_G_CLOUD_APP_NAME,
+  scheme: process.env.EXPO_G_CLOUD_APP_NAME,
   privacy: "unlisted",
   updates: {
     url: process.env.EXPO_PUBLIC_PROJECT_UPDATE_URL,
