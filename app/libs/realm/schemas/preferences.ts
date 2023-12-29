@@ -1,17 +1,23 @@
 import Realm, { ObjectSchema } from "realm";
 
 type GenerateProps = {
-  is_chatter: boolean;
-  is_pet_friendly: boolean;
-  is_smoking_allowed: boolean;
-  plays_music: boolean;
+  is_chatter: PreferencesValues;
+  is_pet_friendly: PreferencesValues;
+  is_smoking_allowed: PreferencesValues;
+  plays_music: PreferencesValues;
 };
 
+enum PreferencesValues {
+  maybe,
+  no,
+  yes,
+}
+
 export class Preferences extends Realm.Object {
-  is_chatter!: boolean;
-  is_pet_friendly!: boolean;
-  is_smoking_allowed!: boolean;
-  plays_music!: boolean;
+  is_chatter!: PreferencesValues;
+  is_pet_friendly!: PreferencesValues;
+  is_smoking_allowed!: PreferencesValues;
+  plays_music!: PreferencesValues;
 
   static schema: ObjectSchema = {
     name: "Preferences",
